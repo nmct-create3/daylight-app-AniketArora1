@@ -8,11 +8,41 @@
 
 :root {
     /* colors */
+    --global-color-dark: #0F3557;
+    --global-color-light: #CCE7FF;
+
+    --global-background-color: var(--global-color-light);
+    --global-font-color: var(--global-color-dark);
 
     /* opacity */
+    --global-opacity: 0.6;
 
     /* transitions */
+
+    --global-baseline: 8px;
+    --global-width: calc(var(--global-baseline) * 58);
+    --global-padding: calc(var(--global-baseline) * 4);
+    --globam-margin: calc(var(--global-baseline) * 4.25);
+    --global-font-size: calc(var(--global-baseline) * 3.5);
+    --global-line-height: calc(var(--global-baseline) * 5);
+
+    --global-logo-font-size: calc(var(--global-baseline) * 2);
+    --global-logo-font-weight: 400;
+    --global-logo-line-height: calc(var(--global-baseline) * 2);
+    --global-logo-size: calc(var(--global-baseline) * 2.75);
+
+    --global-margin-bottom: calc(var(--global-baseline)* 4.25);
 }
+
+/* 
+@media (prefers-color-scheme: dark) {
+    :root{
+        --global-background-color: var(--global-color-dark);
+        --global-font-color: var(--global-color-light);
+    }
+}
+*/
+
 
 /*------------------------------------*\
 #GENERIC
@@ -27,10 +57,13 @@
 html {
     font-size: 16px;
     line-height: 1.5;
-    font-family: Helvetica, arial, sans-serif;
+    font-family: 'Work Sans', sans-serif;
+    font-feature-settings: "zero" 1; 
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background-color: var(--global-background-color);
+    color: var(--global-font-color);
 }
 
 *,
@@ -249,7 +282,12 @@ input::placeholder {
 */
 
 .c-logo {
-
+    font-size: var(--global-logo-font-size);
+    font-weight: var(--global-logo-font-weight);
+    line-height: var(--global-logo-line-height);
+    
+    display: flex;
+    align-items: center;
 }
 
 /*
@@ -259,7 +297,9 @@ input::placeholder {
 */
 
 .c-sun {
-
+    width: var(--global-logo-size);
+    height: var(--global-logo-size);
+    margin-right: var(--global-baseline);
 }
 
 .c-logo .c-sun {
@@ -272,11 +312,71 @@ input::placeholder {
     Main app wrapper
 */
 
+.c-app {
+    max-width: var(--global-width);
+    margin: auto;
+    padding: var(--global-padding);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100%;
+}
+
+.c-app__summary {
+    font-size: var(--global-font-size);
+    line-height: var(--global-line-height);
+}
+
 /*
     Component: Horizon
     ---
     Horizon with sun visualisation
 */
+
+.c-horizon {
+    margin-top: auto;
+}
+
+.c-horizon__line {
+    border-top: 1px solid var(--global-color-dark);    
+    display: flex;
+    justify-content: space-between;
+}
+
+.c-horizon__time {
+    margin-bottom: var(--global-margin-bottom);
+}
+
+.c-horizon__sky-wrapper {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+    padding-top: 22px;
+    padding-right: 44px;
+}
+
+.c-horizon__sky {
+    position: relative;
+    height: 100%;
+}
+
+.c-horizon__sun {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 44px;
+    transform: translateY(22px);
+}
+
+.c-horizon__sun::before{
+    line-height: 14px;
+    content: attr(data-time);
+    display: block;
+    margin-bottom: var(--global-baseline);
+    text-align: center;
+}
 
 /*------------------------------------*\
 #UTILITIES
@@ -287,6 +387,10 @@ input::placeholder {
     Mute with opacity
 */
 
+.u-muted {
+    opacity: var(--global-opacity);
+}
+
 /*------------------------------------*\
 #STATES
 \*------------------------------------*/
@@ -296,6 +400,11 @@ input::placeholder {
 */
 
 /* Night version: just switch the light and dark vars */
+
+.is-night {
+    --global-font-color: var(--global-color-light);
+    --global-background-color: var(--global-color-dark);
+ }
 
 /*------------------------------------*\
 #MEDIA
